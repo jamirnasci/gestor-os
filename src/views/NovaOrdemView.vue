@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <h1>Nova Ordem</h1>
-        <form action="">
+        <h2>Nova Ordem</h2>
+        <form v-on:submit="criarOrdem" action="">
             <div class="form-box d-flex">
                 <div>
                     <h3 class="form-subtitle">Cliente</h3>
@@ -25,7 +25,7 @@
                             <InputText type="email" v-model="clienteEmail" />
                         </div>
                     </div>
-                    <Button style="margin-top: 5px;" label="Cliente Existente" />
+                    <Button v-on:click="handleModal" style="margin-top: 5px;" label="Cliente Existente" />
                 </div>
                 <Divider layout="vertical" />
                 <div class="ms-1">
@@ -80,15 +80,22 @@
                 <label for="descricao">Descrição</label><br>
                 <Textarea class="w-50">
 
-                </Textarea>
+                </Textarea><br>
+                <Button type="submit" severity="success" label="Criar Ordem"/>
             </div>
         </form>
+    </div>
+    <ClienteModal :handleModal="handleModal" :is-visible="modalVisible"/>
+    <div class="card flex justify-center">
+        <Toast position="top-right"/>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Select, InputNumber, DatePicker, InputText, Button, Textarea, Divider } from 'primevue';
+import { Select, InputNumber, DatePicker, InputText, Button, Textarea, Divider, type ToastServiceMethods, Toast } from 'primevue';
+import {useToast} from 'primevue/usetoast'
 import { ref, type Ref } from 'vue';
+import ClienteModal from '../components/modal/ClienteExistenteModal.vue';
 
 const selectedServico: Ref<string> = ref('')
 const selectedDataEntrega = ref()
@@ -99,6 +106,10 @@ const clienteNome: Ref<string> = ref('')
 const clienteCpf: Ref<string> = ref('')
 const clienteTelefone: Ref<string> = ref('')
 const clienteEmail: Ref<string> = ref('')
+
+const modalVisible: Ref<boolean> = ref(false)
+
+const toast: ToastServiceMethods = useToast()
 
 const servicos: Ref = ref([
     { name: 'Reparo' },
@@ -112,6 +123,20 @@ const status: Ref = ref([
     { name: 'Concluída' },
     { name: 'Cancelada' }
 ])
+
+function handleModal(){
+    modalVisible.value = modalVisible.value ? false : true
+}
+
+function criarOrdem(e: any){
+    e.preventDefault()
+    toast.add({
+        severity: 'success', 
+        summary: 'Info', 
+        detail: 'Message Content', 
+        life: 3000
+    })
+}
 
 </script>
 

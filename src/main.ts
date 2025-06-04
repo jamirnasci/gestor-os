@@ -6,6 +6,7 @@ import Aura from '@primeuix/themes/aura'
 import './style.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
+import ToastService from 'primevue/toastservice';
 
 const app = createApp(App)
 
@@ -20,4 +21,5 @@ app.use(PrimeVue, {
         }
     }
 })
+app.use(ToastService)
 app.mount('#app')

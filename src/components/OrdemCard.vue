@@ -1,5 +1,5 @@
 <template>
-    <Card>
+    <Card class="mt-1">
         <template #content>
             <div class="d-flex w-100 align-items-center justify-content-between">
                 <div class="d-flex flex-column">
@@ -10,7 +10,7 @@
                 <div>
                     <strong class="m-1">{{ props.status }}</strong>
                 </div>
-                <Button label="Ver ordem" />
+                <Button label="Ver ordem" v-on:click="handleModal"/>
             </div>
         </template>
     </Card>
@@ -25,6 +25,7 @@ interface Props {
     preco: string
     dataEntrega: string
     status: string
+    handleModal(): void
 }
 
 const props = defineProps<Props>()
