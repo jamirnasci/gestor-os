@@ -1,0 +1,13 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+#app{
+    display: flex;
+}
+.container{
+    padding: 10px;
+    background: radial-gradient(white, whitesmoke, lightgray);
+    flex: 1;
+}
