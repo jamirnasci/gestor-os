@@ -2,14 +2,12 @@ const { BrowserWindow, ipcMain } = require("electron");
 const { app } = require("electron/main");
 const path = require("path");
 const { createOrdem } = require("./repo/ordemRepository");
-const { createCliente } = require("./repo/clienteRepository");
+const { createCliente, findAllClientes, findOneCliente, updateCliente } = require("./repo/clienteRepository");
 const { createProduto } = require("./repo/produtoRepository");
 
 const preloadPath = path.join(__dirname, 'preload.js')
 
 const createWindow = () => {
-
-    console.log(preloadPath)
 
     const w = new BrowserWindow({
         width: 600,
@@ -63,6 +61,35 @@ app.whenReady().then(() => {
             msg: 'Falha ao cadastrar cliente'
         }
 
+    })
+    ipcMain.handle('find-all-clientes', async (ev)=>{
+        const result = await findAllClientes()
+        if(result.success){
+            if(result.values.length > 0){
+                return result.values
+            }
+        }
+        return null
+    })
+    ipcMain.handle('find-one-cliente', async (ev, idcliente)=>{
+        const result = await findOneCliente(idcliente)
+        if(result.success){
+            return result.values[0]
+        }
+        console.log(result.msg)
+        return null
+    })
+    ipcMain.handle('update-cliente', async (ev, cliente)=>{
+        const result = await updateCliente(cliente)
+        console.log(result.msg)
+        if(result.success){
+            return {
+                msg: 'Cliente atualizado'
+            }
+        }
+        return {
+            msg: 'Falha ao atualizar cliente'
+        }
     })
 })
 app.on('window-all-closed', () => {

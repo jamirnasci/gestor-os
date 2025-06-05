@@ -23,24 +23,31 @@
             </DataTable>
         </div>
     </div>
-    <ClienteModal :isVisible="modalVisible" :handleModal="handleModal"/>
+    <ClienteModal 
+        :idCliente="idCliente"
+        :isVisible="modalVisible" 
+        :handleModal="handleModal"
+    />
 </template>
 <script setup lang="ts">
 import { Button, Column, DataTable, InputText } from 'primevue';
-import { ref, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import ClienteModal from '../components/modal/ClienteModal.vue';
 
-const clientes = ref([
-    { nome: 'Jamir', cpf: '12313212333', telefone: '91983733456', email: 'jamir@gmail.com' },
-    { nome: 'Jamir', cpf: '12313212333', telefone: '91983733456', email: 'jamir@gmail.com' },
-    { nome: 'Jamir', cpf: '12313212333', telefone: '91983733456', email: 'jamir@gmail.com' },
-    { nome: 'Jamir', cpf: '12313212333', telefone: '91983733456', email: 'jamir@gmail.com' },
-    { nome: 'Jamir', cpf: '12313212333', telefone: '91983733456', email: 'jamir@gmail.com' },
-])
+const clientes = ref([])
+const idCliente = ref(-1)
+
+onMounted(async ()=>{
+    const result = await window.electronAPI.findAllClientes()
+    if(result){
+        clientes.value = result
+    }
+})
+
 const modalVisible: Ref<boolean> = ref(false)
-function abrirCliente(data: string){
+async function abrirCliente(data: any){
+    idCliente.value = data.idcliente
     handleModal()
-    console.log(data)
 }
 
 function handleModal(){
