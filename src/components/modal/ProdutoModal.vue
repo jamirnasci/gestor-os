@@ -5,10 +5,22 @@
             <div class="d-flex">
                 <div>
                     <span class="text-success">Produto</span>
-                    <div>Marca: Motorola</div>
-                    <div>Modelo: e7</div>
-                    <div>Ano: 2020</div>
-                    <div>Situação: Display quebrado</div>
+                    <div>
+                        <label for="">Marca</label><br>
+                        <InputText type="text"/>
+                    </div>
+                    <div>
+                        <label for="">Modelo</label><br>
+                        <InputText type="text"/>
+                    </div>
+                    <div>
+                        <label for="">Ano</label><br>
+                        <InputText type="number"/>
+                    </div>
+                    <div>
+                        <label for="">Situação</label><br>
+                        <InputText type="text"/>
+                    </div>
                 </div>
                 <Divider layout="vertical"/>
                 <div>
@@ -28,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Dialog, Divider } from 'primevue';
+import { Button, Dialog, Divider, InputText } from 'primevue';
 
 interface Props {
     isVisible: boolean

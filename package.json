@@ -2,15 +2,19 @@
   "name": "gestor-os",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "type": "commonjs",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "electron ."
   },
   "dependencies": {
     "@primeuix/themes": "^1.1.1",
     "bootstrap": "^5.3.6",
+    "electron": "^36.4.0",
+    "mysql2": "^3.14.1",
     "primevue": "^4.3.5",
     "vue": "^3.5.13",
     "vue-router": "^4.5.1"

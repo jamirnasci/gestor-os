@@ -3,10 +3,22 @@
         <Dialog v-model:visible="props.isVisible" modal header="Cliente" :style="{ width: '25rem' }" :closable="false">
             <span class="text-success">Informações do cliente</span>
             <div class="flex items-center gap-4 mb-4">
-                <div>Nome: Jamir</div>
-                <div>Email: jamir@gmail.com</div>
-                <div>Telefone: 91983738322</div>
-                <div>CPF: 12312312300</div>
+                <div>
+                    <label for="">Nome</label><br>
+                    <InputText type="text" />
+                </div>
+                <div>
+                    <label for="">Email</label><br>
+                    <InputText type="email" />
+                </div>
+                <div>
+                    <label for="">Telefone</label><br>
+                    <InputText type="tel" />
+                </div>
+                <div>
+                    <label for="">CPF/CNPJ</label><br>
+                    <InputText type="text" />
+                </div>
             </div>
             <div class="flex justify-end gap-2">
                 <Button type="button" label="Editar" @click="handleModal"></Button>
@@ -17,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button, Dialog } from 'primevue';
+import { Button, Dialog, InputText } from 'primevue';
 
 interface Props {
     isVisible: boolean
