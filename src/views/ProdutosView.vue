@@ -5,11 +5,11 @@
             <div class="d-flex align-items-end p-2">
                 <div class="w-75">
                     <label for="">Nome</label><br>
-                    <InputText fluid />
+                    <InputText v-model="clienteNome" fluid v-on:input="filterProdutos"/>
                 </div>
                 <Button label="Procurar" />
             </div>
-            <DataTable :value="produtos" tableStyle="min-width: 50rem">
+            <DataTable :value="filteredProdutos" tableStyle="min-width: 50rem">
                 <Column field="marca" header="Marca"></Column>
                 <Column field="ano" header="Ano"></Column>
                 <Column field="situacao" header="Situação"></Column>
@@ -30,8 +30,11 @@
 import { Button, Column, DataTable, InputText } from 'primevue';
 import { onMounted, ref, type Ref } from 'vue';
 import ProdutoModal from '../components/modal/ProdutoModal.vue';
+import type Produto from '../models/Produto';
 
 const produtos = ref([])
+const clienteNome: Ref<string> = ref('')
+const filteredProdutos: Ref<Produto[]> = ref([])
 const modalVisible: Ref<boolean> = ref(false)
 const idProduto: Ref<number> = ref(-1)
 
@@ -50,6 +53,15 @@ function abrirProduto(data: any) {
     handleModal()
     
 }
+
+function filterProdutos(){
+    filteredProdutos.value =  produtos.value.filter((item: any)=>{
+        if(item.nome.toLowerCase().includes(clienteNome.value.toLowerCase())){
+            return item
+        }
+    })
+}
+
 function handleModal(){
     modalVisible.value = !modalVisible.value
 }

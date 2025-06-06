@@ -10,7 +10,7 @@ const preloadPath = path.join(__dirname, 'preload.js')
 const createWindow = () => {
 
     const w = new BrowserWindow({
-        width: 600,
+        width: 1000,
         height: 800,
         webPreferences: {
             preload: preloadPath

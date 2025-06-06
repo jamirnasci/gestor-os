@@ -16,7 +16,7 @@
 <style lang="css" scoped>
     .side-bar-container{
         height: 100vh;
-        width: 300px;
+        width: 250px;
         background-color: seagreen;
     }
     .logo-box{
