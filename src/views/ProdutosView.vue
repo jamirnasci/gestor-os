@@ -14,7 +14,7 @@
                 <Column field="ano" header="Ano"></Column>
                 <Column field="situacao" header="Situação"></Column>
                 <Column field="modelo" header="Modelo"></Column>
-                <Column field="proprietario" header="Proprietário"></Column>
+                <Column field="nome" header="Proprietário"></Column>
                 <Column header="Ação">
                     <!-- slot body com slotProps para acessar os dados da linha -->
                     <template #body="slotProps">
@@ -24,25 +24,31 @@
             </DataTable>
         </div>
     </div>
-    <ProdutoModal :isVisible="modalVisible" :handleModal="handleModal"/>
+    <ProdutoModal :idProduto="idProduto" :isVisible="modalVisible" :handleModal="handleModal"/>
 </template>
 <script setup lang="ts">
 import { Button, Column, DataTable, InputText } from 'primevue';
-import { ref, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import ProdutoModal from '../components/modal/ProdutoModal.vue';
 
-const produtos = ref([
-    { marca: 'Motorola', ano: '2020', situacao: 'Display rachado', modelo: 'e7', proprietario: 'Jamir' },
-    { marca: 'Motorola', ano: '2020', situacao: 'Display rachado', modelo: 'e7', proprietario: 'Jamir' },
-    { marca: 'Motorola', ano: '2020', situacao: 'Display rachado', modelo: 'e7', proprietario: 'Jamir' },
-    { marca: 'Motorola', ano: '2020', situacao: 'Display rachado', modelo: 'e7', proprietario: 'Jamir' },
-    { marca: 'Motorola', ano: '2020', situacao: 'Display rachado', modelo: 'e7', proprietario: 'Jamir' },
-])
+const produtos = ref([])
 const modalVisible: Ref<boolean> = ref(false)
+const idProduto: Ref<number> = ref(-1)
 
-function abrirProduto(data: string) {
+onMounted(async ()=>{
+    const result = await window.electronAPI.findAllProdutos()
+    if(result){
+        produtos.value = result[0]
+    }else{
+        alert('Nenhum produto encontrado')
+    }
+    
+})
+
+function abrirProduto(data: any) {
+    idProduto.value = data.idproduto
     handleModal()
-    console.log(data)
+    
 }
 function handleModal(){
     modalVisible.value = !modalVisible.value

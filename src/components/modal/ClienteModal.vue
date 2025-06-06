@@ -5,19 +5,19 @@
             <div class="flex items-center gap-4 mb-4">
                 <div>
                     <label for="">Nome</label><br>
-                    <InputText v-model="nome" type="text" />
+                    <InputText v-model="cliente.nome" type="text" />
                 </div>
                 <div>
                     <label for="">Email</label><br>
-                    <InputText v-model="email" type="email" />
+                    <InputText v-model="cliente.email" type="email" />
                 </div>
                 <div>
                     <label for="">Telefone</label><br>
-                    <InputText v-model="telefone" type="tel" />
+                    <InputText v-model="cliente.telefone" type="tel" />
                 </div>
                 <div>
                     <label for="">CPF/CNPJ</label><br>
-                    <InputText v-model="cpf" type="text" />
+                    <InputText v-model="cliente.cpf" type="text" />
                 </div>
             </div>
             <div class="flex justify-end gap-2">
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { Button, Dialog, InputText } from 'primevue';
 import { ref, watch, type Ref } from 'vue';
+import type Cliente from '../../models/Cliente';
 
 interface Props {
     idCliente: number
@@ -40,32 +41,33 @@ interface Props {
 const props = defineProps<Props>()
 
 console.log(props)
-const nome: Ref<string> = ref('')
-const cpf: Ref<string> = ref('')
-const email: Ref<string> = ref('')
-const telefone: Ref<string> = ref('')
+const cliente: Ref<Cliente> = ref({
+    cpf: '',
+    email: '',
+    idcliente: -1,
+    nome: '',
+    telefone: ''
+})
 
 watch(
     () => props.isVisible,
     async () => {
-    const result = await window.electronAPI.findOneCliente(props.idCliente)
+    const result: Cliente = await window.electronAPI.findOneCliente(props.idCliente)
     
     if (result) {
-        nome.value = result.nome
-        email.value = result.email
-        telefone.value = result.telefone
-        cpf.value = result.cpf
+        cliente.value = result
     }
 })
 
 async function updateCliente(){
-    const result = await window.electronAPI.updateCliente({
+    const payload = {
         idcliente: props.idCliente,
-        nome: nome.value,
-        email: email.value,
-        telefone: telefone.value,
-        cpf: cpf.value
-    })
+        nome: cliente.value.nome,
+        email: cliente.value.email,
+        telefone: cliente.value.telefone,
+        cpf: cliente.value.cpf
+    }
+    const result = await window.electronAPI.updateCliente(payload)
     if(result){
         alert(result.msg)
     }

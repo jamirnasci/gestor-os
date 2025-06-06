@@ -1,3 +1,6 @@
+import type Ordem from "../src/models/Ordem"
+import type Produto from "../src/models/Produto"
+
 export {}
 
 declare global{
@@ -7,7 +10,13 @@ declare global{
             createOrdem: (cliente, produto, ordem) => Promise<{success: boolean, msg: string}>,
             findAllClientes: () => Promise<[]>,
             findOneCliente: (idcliente: number) => Promise<any>,
-            updateCliente: (cliente: any) => Promise<any>
+            updateCliente: (cliente: any) => Promise<any>,
+            findOneProduto: (idProduto: number) => Promise<any>,
+            findAllProdutos: () => Promise<any>,
+            updateProduto: (produto: Produto) => Promise<any>,
+            findAllOrdens: ()=> Promise<any>,
+            findOneOrdem: (idordem: number) => Promise<Ordem>,
+            updateOrdem: (idordem, status) => Promise<any>
         }
     }
 }

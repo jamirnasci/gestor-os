@@ -1,9 +1,9 @@
 const { BrowserWindow, ipcMain } = require("electron");
 const { app } = require("electron/main");
 const path = require("path");
-const { createOrdem } = require("./repo/ordemRepository");
+const { createOrdem, findAllOrdens, findOneOrdem, updateOrdem } = require("./repo/ordemRepository");
 const { createCliente, findAllClientes, findOneCliente, updateCliente } = require("./repo/clienteRepository");
-const { createProduto } = require("./repo/produtoRepository");
+const { createProduto, findAllProdutos, findOneProduto, updateProduto } = require("./repo/produtoRepository");
 
 const preloadPath = path.join(__dirname, 'preload.js')
 
@@ -62,33 +62,90 @@ app.whenReady().then(() => {
         }
 
     })
-    ipcMain.handle('find-all-clientes', async (ev)=>{
+    ipcMain.handle('find-all-clientes', async (ev) => {
         const result = await findAllClientes()
-        if(result.success){
-            if(result.values.length > 0){
+        if (result.success) {
+            if (result.values.length > 0) {
                 return result.values
             }
         }
         return null
     })
-    ipcMain.handle('find-one-cliente', async (ev, idcliente)=>{
+    ipcMain.handle('find-one-cliente', async (ev, idcliente) => {
         const result = await findOneCliente(idcliente)
-        if(result.success){
+        if (result.success) {
             return result.values[0]
         }
         console.log(result.msg)
         return null
     })
-    ipcMain.handle('update-cliente', async (ev, cliente)=>{
+    ipcMain.handle('update-cliente', async (ev, cliente) => {
         const result = await updateCliente(cliente)
         console.log(result.msg)
-        if(result.success){
+        if (result.success) {
             return {
                 msg: 'Cliente atualizado'
             }
         }
         return {
             msg: 'Falha ao atualizar cliente'
+        }
+    })
+    ipcMain.handle('find-all-produtos', async (ev) => {
+        const result = await findAllProdutos()
+
+        if (result.success) {
+            return result.values
+        }
+        console.log(result.msg)
+        return null
+    })
+    ipcMain.handle('find-one-produto', async (ev, idproduto) => {
+        const result = await findOneProduto(idproduto)
+        if (result.success) {
+            return result.values[0]
+        }
+        console.log(result.msg)
+        return null
+    })
+    ipcMain.handle('update-produto', async (ev, produto) => {
+        const result = await updateProduto(produto)
+        console.log(result.msg)
+        if (result.success) {
+            return {
+                msg: 'Produto atualizado'
+            }
+        }
+        return {
+            msg: 'Falha ao atualizar produto'
+        }
+    })
+    ipcMain.handle('find-all-ordens', async ()=>{
+        const result = await findAllOrdens()
+        if(result.success){
+            return result.values
+        }
+        console.log(result.msg)
+        return null
+    })
+    ipcMain.handle('find-one-ordem', async (ev, idordem)=>{
+        const result = await findOneOrdem(idordem)
+        if(result.success){
+            return result.values[0]
+        }
+        console.log(result.msg)
+        return null
+    })
+    ipcMain.handle('update-ordem', async (ev, idordem, status)=>{
+        const result = await updateOrdem(idordem, status)
+        if(result.success){
+            return {
+                msg: 'Ordem atualizada !'
+            }
+        }
+        console.log(result.msg)
+        return {
+            msg: 'Falha ao atualizar ordem'
         }
     })
 })
