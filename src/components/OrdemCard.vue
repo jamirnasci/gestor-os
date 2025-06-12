@@ -5,7 +5,7 @@
                 <div class="d-flex flex-column">
                       <h3> {{ props.tipo }} </h3> 
                     <span>Preço: R$ {{ parseFloat(props.preco).toFixed(2) }}</span>
-                    <span>Data Entrega: {{ props.dataEntrega }}</span>
+                    <span>Data Entrega: {{ new Date(props.dataEntrega).toLocaleDateString('pt-BR') }}</span>
                 </div>
                 <div>
                     <strong class="m-1">{{ props.status }}</strong>
@@ -30,7 +30,6 @@ interface Props {
 }
 
 const props = defineProps<Props>()
-
 
 async function loadOrdemInfo(){
     props.handleModal(props.idordem)

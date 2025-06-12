@@ -97,9 +97,33 @@ async function updateOrdem(idordem, status){
     }
 }
 
+async function deleteOrdem(idordem){
+    const sql = 'DELETE FROM ordem WHERE idordem = ?'
+    let conn
+
+    try {
+        conn = await pool.getConnection()
+        const stmt = await conn.prepare(sql)
+        const [result] = await stmt.execute([idordem])
+        if(result.affectedRows > 0){
+            return {
+                success: true
+            }
+        }
+    } catch (error) {
+        return {
+            success: false,
+            msg: error.message
+        }
+    } finally{
+        if(conn) conn.release()
+    }
+}
+
 module.exports = {
     createOrdem,
     findAllOrdens,
     findOneOrdem,
-    updateOrdem
+    updateOrdem,
+    deleteOrdem
 }

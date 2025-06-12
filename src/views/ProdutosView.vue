@@ -42,6 +42,7 @@ onMounted(async ()=>{
     const result = await window.electronAPI.findAllProdutos()
     if(result){
         produtos.value = result[0]
+        filteredProdutos.value = produtos.value
     }else{
         alert('Nenhum produto encontrado')
     }

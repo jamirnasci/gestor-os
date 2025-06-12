@@ -11,5 +11,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     updateProduto: (produto) => ipcRenderer.invoke('update-produto', produto),
     findAllOrdens: () => ipcRenderer.invoke('find-all-ordens'),
     findOneOrdem: (idordem) => ipcRenderer.invoke('find-one-ordem', idordem),
-    updateOrdem: (idordem, status) => ipcRenderer.invoke('update-ordem', idordem, status)
+    updateOrdem: (idordem, status) => ipcRenderer.invoke('update-ordem', idordem, status),
+    deleteOrdem: (idordem) => ipcRenderer.invoke('delete-ordem', idordem)
 })

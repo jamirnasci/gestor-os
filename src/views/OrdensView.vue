@@ -29,7 +29,9 @@ onMounted(async () => {
 })
 
 async function handleModal(idordem: number | undefined) {
-    choosedOrdem.value = idordem
+    if(idordem){
+        choosedOrdem.value = idordem
+    }
     modalVisible.value = !modalVisible.value
 }
 </script>

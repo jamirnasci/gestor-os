@@ -44,6 +44,7 @@ onMounted(async ()=>{
     const result = await window.electronAPI.findAllClientes()
     if(result){
         clientes.value = result
+        filteredClientes.value = result
     }
 })
 

@@ -32,7 +32,7 @@
                     :maxSelectedLabels="3" class="w-full md:w-80" fluid />
             </div>
             <div class="mt-1">
-                <Button type="button" label="Cancelar Ordem" severity="danger" v-on:click="handleModal(undefined)" />
+                <Button type="button" label="Excluir Ordem" severity="danger" v-on:click="excluirOrdem" />
                 <Button class="ms-1" type="button" label="Fechar" severity="warn"
                     v-on:click="handleModal(undefined)"></Button>
                 <Button class="ms-1" type="button" label="Editar" v-on:click="updateOrdem"></Button>
@@ -68,7 +68,6 @@ const ordem: Ref<Ordem | undefined> = ref()
 const cliente: Ref<Cliente | undefined> = ref()
 
 async function updateOrdem(){
-    console.log((status.value as any).name)
     const result = await window.electronAPI.updateOrdem(props.idordem, (status.value as any).name)
     if(result){
         alert(result.msg)
@@ -83,15 +82,23 @@ watch(
             const produtoResult: Produto = await window.electronAPI.findOneProduto(ordemResult.produto_idproduto)
             const clienteResult: Cliente = await window.electronAPI.findOneCliente(produtoResult.cliente_idcliente)
 
-            console.log(ordemResult, produtoResult)
-
             produto.value = produtoResult
             ordem.value = ordemResult
+            ordem.value.data_entrega = new Date(ordemResult.data_entrega).toLocaleDateString("pt-BR")
             cliente.value = clienteResult
 
         }
     }
 )
+
+async function excluirOrdem(){
+    if(props.idordem){
+        const result = await window.electronAPI.deleteOrdem(props.idordem)
+        if(result.success){
+            alert(result.msg)
+        }
+    }
+}
 
 
 </script>

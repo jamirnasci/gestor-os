@@ -1,7 +1,7 @@
 const { BrowserWindow, ipcMain } = require("electron");
 const { app } = require("electron/main");
 const path = require("path");
-const { createOrdem, findAllOrdens, findOneOrdem, updateOrdem } = require("./repo/ordemRepository");
+const { createOrdem, findAllOrdens, findOneOrdem, updateOrdem, deleteOrdem } = require("./repo/ordemRepository");
 const { createCliente, findAllClientes, findOneCliente, updateCliente } = require("./repo/clienteRepository");
 const { createProduto, findAllProdutos, findOneProduto, updateProduto } = require("./repo/produtoRepository");
 
@@ -14,7 +14,8 @@ const createWindow = () => {
         height: 800,
         webPreferences: {
             preload: preloadPath
-        }
+        },
+        autoHideMenuBar: true
     })
     w.loadURL('http://localhost:5173/')
 }
@@ -146,6 +147,18 @@ app.whenReady().then(() => {
         console.log(result.msg)
         return {
             msg: 'Falha ao atualizar ordem'
+        }
+    })
+    ipcMain.handle('delete-ordem', async (ev, idordem)=>{
+        const result = await deleteOrdem(idordem)
+        if(result.success){
+            return {
+                msg: result.msg
+            }
+        }
+        console.log(result.msg)
+        return {
+            msg: 'Falha ao excluir ordem'
         }
     })
 })
