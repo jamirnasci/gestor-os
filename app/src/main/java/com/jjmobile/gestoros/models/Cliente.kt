@@ -1,7 +1,7 @@
 package com.jjmobile.gestoros.models
 
 data class Cliente(
-    val id: Int?,
+    var idcliente: Long?,
     val nome: String,
     val telefone: String,
     val email: String,

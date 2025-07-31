@@ -6,41 +6,42 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/ordemContainer"
-        android:layout_width="409dp"
+        android:id="@+id/contatoContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/btn_default"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            app:srcCompat="@drawable/cancel_svgrepo_com" />
+            app:srcCompat="@drawable/person_button_svgrepo_com" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
             android:layout_weight="0"
+            android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/nomeClienteItem"
+                android:id="@+id/nomeContatoItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome Cliente"
+                android:text="TextView"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/descricaoOrdemItem"
+                android:id="@+id/telefoneContatoItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descrição da ordem" />
+                android:text="TextView" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

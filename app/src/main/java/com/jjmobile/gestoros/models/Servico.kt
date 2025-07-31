@@ -1,7 +1,7 @@
 package com.jjmobile.gestoros.models
 
 class Servico(
-    val id: Int?,
+    val idservico: Long?,
     val nome: String,
     val preco: Double
 ){

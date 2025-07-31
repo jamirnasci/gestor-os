@@ -13,8 +13,8 @@ class ServicoRepository(context: Context) {
         val db = sqlite.writableDatabase
 
         val values = ContentValues().apply {
-            put("nome", servico.nome)
-            put("preco", servico.preco)
+            put("nome_servico", servico.nome)
+            put("preco_servico", servico.preco)
         }
 
         db.insert("servicos", null, values)
@@ -22,7 +22,7 @@ class ServicoRepository(context: Context) {
     fun findAll(): MutableList<Servico>{
         val db = sqlite.readableDatabase
 
-        val projection = arrayOf("id", "nome", "preco")
+        val projection = arrayOf("idservico", "nome_servico", "preco_servico")
         val selection = null
 
         val cursor = db.query("servicos", projection, selection, null, null, null, null)
@@ -31,9 +31,9 @@ class ServicoRepository(context: Context) {
 
         with(cursor){
             while(moveToNext()){
-                val id = getInt(getColumnIndexOrThrow("id"))
-                val nome = getString(getColumnIndexOrThrow("nome"))
-                val preco = getDouble(getColumnIndexOrThrow("preco"))
+                val id = getLong(getColumnIndexOrThrow("idservico"))
+                val nome = getString(getColumnIndexOrThrow("nome_servico"))
+                val preco = getDouble(getColumnIndexOrThrow("preco_servico"))
                 servicosFound.add(Servico(id, nome, preco))
             }
         }
