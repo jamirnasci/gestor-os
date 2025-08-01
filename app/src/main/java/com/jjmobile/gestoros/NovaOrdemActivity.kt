@@ -3,9 +3,12 @@ package com.jjmobile.gestoros
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -44,7 +47,14 @@ class NovaOrdemActivity : AppCompatActivity() {
         return cr.findAll()
     }
 
-    @SuppressLint("MissingInflatedId")
+    fun filterClientes(nome: String, clientes: List<Cliente>): List<Cliente>{
+        val filteredClientes: List<Cliente> = clientes.filter { item ->
+            item.nome.lowercase().contains(nome.lowercase())
+        }
+        return filteredClientes
+    }
+
+    @SuppressLint("MissingInflatedId", "SetTextI18n")
     fun showClientDialog(){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Clientes Resgistrados")
@@ -52,8 +62,25 @@ class NovaOrdemActivity : AppCompatActivity() {
         builder.setView(view)
         val dialog: AlertDialog = builder.create()
         val recycler = view.findViewById<RecyclerView>(R.id.clientesRecycler)
+        val searchNome = view.findViewById<EditText>(R.id.searchClienteDialogEdit)
 
         val clientes = cr.findAll()
+        searchNome.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                //
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val nome: String = searchNome.text.toString()
+                val filteredClientes = filterClientes(nome, clientes)
+                recycler.adapter = ClienteAdapter(applicationContext, filteredClientes, dialog, this@NovaOrdemActivity)
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //
+            }
+
+        })
         recycler.adapter = ClienteAdapter(applicationContext, clientes, dialog, this@NovaOrdemActivity)
         recycler.layoutManager = LinearLayoutManager(applicationContext)
         dialog.setOnDismissListener {

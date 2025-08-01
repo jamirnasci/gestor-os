@@ -76,8 +76,10 @@ class OrdemRepository(context: Context) {
             FROM ordens 
                 INNER JOIN clientes ON ordens.idcliente = clientes.idcliente
                 INNER JOIN servicos ON ordens.idservico = servicos.idservico
+            WHERE ordens.idordem = ?
         """.trimIndent()
-        val cursor = db.rawQuery(sql, null)
+        val selectionArgs = arrayOf("$id")
+        val cursor = db.rawQuery(sql, selectionArgs)
         var ordem: Ordem? = null
         if(cursor.moveToFirst()) {
             with(cursor){
@@ -106,5 +108,22 @@ class OrdemRepository(context: Context) {
         }
 
         return ordem
+    }
+    fun updateStatus(status: String, id: Long): Int{
+        val dbWriter = sqlite.writableDatabase
+
+        val values = ContentValues().apply {
+            put("status", status)
+        }
+        val where = "idordem = ?"
+        val whereArgs = arrayOf("$id")
+        return dbWriter.update("ordens", values, where, whereArgs)
+    }
+    fun deleteOrdem(id: Long): Int{
+        val dbWriter = sqlite.writableDatabase
+
+        val where = "idordem = ?"
+        val whereArgs = arrayOf("$id")
+        return dbWriter.delete("ordens", where, whereArgs)
     }
 }

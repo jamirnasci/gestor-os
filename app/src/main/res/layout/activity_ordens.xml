@@ -21,7 +21,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/editTextText"
+                android:id="@+id/nomeClienteSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -30,13 +30,6 @@
                 android:hint="Nome do cliente"
                 android:inputType="text" />
 
-            <ImageButton
-                android:id="@+id/imageButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:background="@android:drawable/btn_default"
-                app:srcCompat="@android:drawable/ic_menu_search" />
         </LinearLayout>
 
         <LinearLayout

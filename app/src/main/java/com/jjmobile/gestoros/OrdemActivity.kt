@@ -2,17 +2,19 @@ package com.jjmobile.gestoros
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.jjmobile.gestoros.databinding.ActivityOrdemBinding
+import com.jjmobile.gestoros.db.Sqlite
 import com.jjmobile.gestoros.models.Ordem
 import com.jjmobile.gestoros.repository.OrdemRepository
 
 class OrdemActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOrdemBinding
-
+    private lateinit var or: OrdemRepository
     fun loadOrdem(id: Long): Ordem?{
         val or: OrdemRepository = OrdemRepository(applicationContext)
         return or.findById(id)
@@ -23,8 +25,9 @@ class OrdemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOrdemBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        or = OrdemRepository(applicationContext)
         val id: Long = intent.getLongExtra("id", -1L)
+
         if(id != -1L){
             val ordem: Ordem? = loadOrdem(id)
             if(ordem != null){
@@ -41,6 +44,26 @@ class OrdemActivity : AppCompatActivity() {
                 binding.descricaoOrdem.setText(ordem.descricao.toString())
             }
         }
-
+        binding.cancelarBtn.setOnClickListener {
+            val rowsAffected: Int = or.updateStatus(Sqlite.ORDEM_STATUS_CANCELADO, id)
+            if(rowsAffected > 0){
+                Toast.makeText(applicationContext, "Ordem atualizada", Toast.LENGTH_SHORT).show()
+            }
+            finish()
+        }
+        binding.concluirBtn.setOnClickListener {
+            val rowsAffected: Int = or.updateStatus(Sqlite.ORDEM_STATUS_CONCLUIDO, id)
+            if(rowsAffected > 0){
+                Toast.makeText(applicationContext, "Ordem atualizada", Toast.LENGTH_SHORT).show()
+            }
+            finish()
+        }
+        binding.apagarOrdemBtn.setOnClickListener {
+            val rowsAffected: Int = or.deleteOrdem(id)
+            if(rowsAffected > 0){
+                Toast.makeText(applicationContext, "Ordem removida com sucesso", Toast.LENGTH_SHORT).show()
+            }
+            finish()
+        }
     }
 }

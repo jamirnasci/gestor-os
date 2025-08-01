@@ -231,7 +231,16 @@
             tools:ignore="Deprecated" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/apagarOrdemBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/btn_default"
+            android:backgroundTint="@color/black"
+            android:text="Apagar"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/cancelarBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_default"
@@ -241,7 +250,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/concluirBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/btn_default"
