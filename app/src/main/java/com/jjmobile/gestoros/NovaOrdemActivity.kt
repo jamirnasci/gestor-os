@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.CalendarView
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -90,11 +91,7 @@ class NovaOrdemActivity : AppCompatActivity() {
                     binding.nomeInput.setText(cliente.nome)
                     binding.telefoneInput.setText(cliente.telefone)
                     binding.emailInput.setText(cliente.email)
-                    binding.estadoInput.setText(cliente.estado)
-                    binding.cidadeInput.setText(cliente.cidade)
-                    binding.bairroInput.setText(cliente.bairro)
-                    binding.ruaInput.setText(cliente.rua)
-                    binding.numberoInput.setText(cliente.num_casa.toString())
+                    binding.enderecoInput.setText(cliente.endereco)
                 }
             }
         }
@@ -109,6 +106,8 @@ class NovaOrdemActivity : AppCompatActivity() {
         cr = ClienteRepository(applicationContext)
         or = OrdemRepository(applicationContext)
         sr = ServicoRepository(applicationContext)
+        binding.datePicker.visibility = View.GONE
+        setSupportActionBar(binding.toolbar)
 
         val servicos: List<Servico> = loadServicos()
         val adapter: ArrayAdapter<Servico> = ArrayAdapter<Servico>(applicationContext, android.R.layout.simple_spinner_item, servicos)
@@ -141,26 +140,31 @@ class NovaOrdemActivity : AppCompatActivity() {
             showClientDialog()
         }
 
+        binding.datePicker.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            binding.datePicker.visibility = View.INVISIBLE
+            val d = if (dayOfMonth < 10) "0$dayOfMonth" else dayOfMonth
+            val m = if (month < 10) "0" + (month + 1) else month
+            binding.dataInput.setText("$d/$m/$year")
+        }
+        binding.openDatePickerBtn.setOnClickListener {
+            binding.datePicker.visibility = View.VISIBLE
+            binding.datePicker.invalidate()
+            binding.datePicker.requestLayout()
+        }
         binding.criarOrdemBtn.setOnClickListener {
             val nome: String = binding.nomeInput.text.toString()
             val email: String = binding.emailInput.text.toString()
             val telefone: String = binding.telefoneInput.text.toString()
-            val estado: String = binding.estadoInput.text.toString()
-            val cidade: String = binding.cidadeInput.text.toString()
-            val bairro: String = binding.bairroInput.text.toString()
-            val rua: String = binding.ruaInput.text.toString()
-            val numero: String = binding.numberoInput.text.toString()
+            val endereco: String = binding.enderecoInput.text.toString()
+            val dataOrdem: String = binding.dataInput.text.toString()
             val preco: String = binding.precoInput.text.toString()
             val descricao: String = binding.descricaoInput.text.toString()
             if(
                 nome.isEmpty() ||
                 email.isEmpty()  ||
                 telefone.isEmpty() ||
-                estado.isEmpty() ||
-                cidade.isEmpty() ||
-                bairro.isEmpty() ||
-                rua.isEmpty() ||
-                numero.isEmpty() ||
+                endereco.isEmpty() ||
+                dataOrdem.isEmpty() ||
                 preco.isEmpty() ||
                 descricao.isEmpty() ||
                 selectedServico == null
@@ -168,7 +172,7 @@ class NovaOrdemActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Preencha todos os campos", Toast.LENGTH_LONG).show()
             }else{
 
-                val cliente: Cliente = Cliente(null, nome, telefone, email, estado, cidade, bairro, rua, numero.toInt())
+                val cliente: Cliente = Cliente(null, nome, telefone, email, endereco)
                 if(idCliente == null){
                     idCliente = cr.createCliente(cliente)
                     if(idCliente != -1L){
@@ -177,7 +181,7 @@ class NovaOrdemActivity : AppCompatActivity() {
                 }
 
                 cliente.idcliente = idCliente
-                val ordem: Ordem = Ordem(null, preco.toDouble(), Sqlite.ORDEM_STATUS_ABERTO, descricao, cliente, selectedServico!!)
+                val ordem: Ordem = Ordem(null, preco.toDouble(), Sqlite.ORDEM_STATUS_ABERTO, descricao, dataOrdem, cliente, selectedServico!!)
                 val idOrdem: Long = or.createOrdem(ordem)
                 if(idOrdem == -1L){
                     Toast.makeText(applicationContext, "Falha ao criar ordem $idOrdem", Toast.LENGTH_SHORT).show()
@@ -187,5 +191,9 @@ class NovaOrdemActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

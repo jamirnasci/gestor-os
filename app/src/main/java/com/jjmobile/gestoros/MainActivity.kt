@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         binding.novaOrdemBtn.setOnClickListener {
             val novaOrdemIntent: Intent = Intent(applicationContext, NovaOrdemActivity::class.java)
@@ -32,5 +33,9 @@ class MainActivity : AppCompatActivity() {
             val confIntent: Intent = Intent(applicationContext, ConfigActivity::class.java)
             startActivity(confIntent)
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

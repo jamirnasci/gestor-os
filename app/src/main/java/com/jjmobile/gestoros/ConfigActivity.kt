@@ -23,9 +23,10 @@ class ConfigActivity : AppCompatActivity() {
         binding = ActivityConfigBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.addServico.setOnClickListener {
+        setSupportActionBar(binding.toolbar)
+
+        binding.addServicoBtn.setOnClickListener {
             val dialog: AlertDialog.Builder = AlertDialog.Builder(this)
-            dialog.setTitle("Cadastrar Serviço")
             val view: View = layoutInflater.inflate(R.layout.cadastrar_servico_dialog, null)
             dialog.setView(view)
             dialog.setPositiveButton("Cadastrar") { dialog, which ->
@@ -40,5 +41,10 @@ class ConfigActivity : AppCompatActivity() {
             }
             dialog.show()
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }

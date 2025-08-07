@@ -5,6 +5,7 @@ data class Ordem(
     val preco_final: Double,
     val status: String,
     val descricao: String,
+    val data_ordem: String,
     val cliente: Cliente,
     val servico: Servico
 )

@@ -17,11 +17,7 @@ class ClienteRepository(context: Context) {
             put("nome_cliente", cliente.nome)
             put("telefone", cliente.telefone)
             put("email", cliente.email)
-            put("estado", cliente.estado)
-            put("cidade", cliente.cidade)
-            put("bairro", cliente.bairro)
-            put("rua", cliente.rua)
-            put("num_casa", cliente.num_casa)
+            put("endereco", cliente.endereco)
         }
 
         return dbWriter.insert("clientes", null, values)
@@ -42,12 +38,8 @@ class ClienteRepository(context: Context) {
                 val nome = getString(getColumnIndexOrThrow("nome_cliente"))
                 val telefone = getString(getColumnIndexOrThrow("telefone"))
                 val email = getString(getColumnIndexOrThrow("email"))
-                val estado = getString(getColumnIndexOrThrow("estado"))
-                val cidade = getString(getColumnIndexOrThrow("cidade"))
-                val bairro = getString(getColumnIndexOrThrow("bairro"))
-                val rua = getString(getColumnIndexOrThrow("rua"))
-                val numCasa = getInt(getColumnIndexOrThrow("num_casa"))
-                clientesFound.add(Cliente(id, nome, telefone, email, estado, cidade, bairro, rua, numCasa))
+                val endereco = getString(getColumnIndexOrThrow("endereco"))
+                clientesFound.add(Cliente(id, nome, telefone, email, endereco))
             }
         }
         cursor.close()
@@ -68,11 +60,7 @@ class ClienteRepository(context: Context) {
                 cursor.getString(cursor.getColumnIndexOrThrow("nome_cliente")),
                 cursor.getString(cursor.getColumnIndexOrThrow("telefone")),
                 cursor.getString(cursor.getColumnIndexOrThrow("email")),
-                cursor.getString(cursor.getColumnIndexOrThrow("estado")),
-                cursor.getString(cursor.getColumnIndexOrThrow("cidade")),
-                cursor.getString(cursor.getColumnIndexOrThrow("bairro")),
-                cursor.getString(cursor.getColumnIndexOrThrow("rua")),
-                cursor.getInt(cursor.getColumnIndexOrThrow("num_casa"))
+                cursor.getString(cursor.getColumnIndexOrThrow("endereco"))
             )
         }
 

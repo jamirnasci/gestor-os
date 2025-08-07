@@ -17,6 +17,7 @@ class OrdemRepository(context: Context) {
             put("preco_final", ordem.preco_final)
             put("status", ordem.status)
             put("descricao", ordem.descricao)
+            put("data_ordem", ordem.data_ordem)
             put("idcliente", ordem.cliente.idcliente)
             put("idservico", ordem.servico.idservico)
         }
@@ -43,24 +44,21 @@ class OrdemRepository(context: Context) {
                 val nome: String = getString(getColumnIndexOrThrow("nome_cliente"))
                 val telefone: String = getString(getColumnIndexOrThrow("telefone"))
                 val email: String = getString(getColumnIndexOrThrow("email"))
-                val estado : String = getString(getColumnIndexOrThrow("estado"))
-                val cidade : String = getString(getColumnIndexOrThrow("cidade"))
-                val bairro : String = getString(getColumnIndexOrThrow("bairro"))
-                val rua : String = getString(getColumnIndexOrThrow("rua"))
-                val num_casa: Int = getInt(getColumnIndexOrThrow("num_casa"))
+                val endereco : String = getString(getColumnIndexOrThrow("endereco"))
 
                 val idordem: Long? = getLong(getColumnIndexOrThrow("idordem"))
                 val precoFinal: Double = getDouble(getColumnIndexOrThrow("preco_final"))
                 val status: String = getString(getColumnIndexOrThrow("status"))
+                val dataOrdem: String = getString(getColumnIndexOrThrow("data_ordem"))
                 val descricao: String = getString(getColumnIndexOrThrow("descricao"))
 
                 val nomeServico: String = getString(getColumnIndexOrThrow("nome_servico"))
                 val precoServico: Double = getDouble(getColumnIndexOrThrow("preco_servico"))
 
-                val cliente: Cliente = Cliente(null, nome, telefone, email, estado, cidade, bairro, rua, num_casa)
+                val cliente: Cliente = Cliente(null, nome, telefone, email, endereco)
                 val servico: Servico = Servico(null, nomeServico, precoServico)
 
-                ordens.add(Ordem(idordem, precoFinal, status, descricao, cliente, servico))
+                ordens.add(Ordem(idordem, precoFinal, status, descricao, dataOrdem, cliente, servico))
             }
         }
 
@@ -86,24 +84,21 @@ class OrdemRepository(context: Context) {
                 val nome: String = getString(getColumnIndexOrThrow("nome_cliente"))
                 val telefone: String = getString(getColumnIndexOrThrow("telefone"))
                 val email: String = getString(getColumnIndexOrThrow("email"))
-                val estado: String = getString(getColumnIndexOrThrow("estado"))
-                val cidade: String = getString(getColumnIndexOrThrow("cidade"))
-                val bairro: String = getString(getColumnIndexOrThrow("bairro"))
-                val rua: String = getString(getColumnIndexOrThrow("rua"))
-                val num_casa: Int = getInt(getColumnIndexOrThrow("num_casa"))
+                val endereco: String = getString(getColumnIndexOrThrow("endereco"))
 
                 val idordem: Long? = getLong(getColumnIndexOrThrow("idordem"))
                 val precoFinal: Double = getDouble(getColumnIndexOrThrow("preco_final"))
                 val status: String = getString(getColumnIndexOrThrow("status"))
+                val dataOrdem: String = getString(getColumnIndexOrThrow("data_ordem"))
                 val descricao: String = getString(getColumnIndexOrThrow("descricao"))
 
                 val nomeServico: String = getString(getColumnIndexOrThrow("nome_servico"))
                 val precoServico: Double = getDouble(getColumnIndexOrThrow("preco_servico"))
 
-                val cliente: Cliente = Cliente(null, nome, telefone, email, estado, cidade, bairro, rua, num_casa)
+                val cliente: Cliente = Cliente(null, nome, telefone, email, endereco)
                 val servico: Servico = Servico(null, nomeServico, precoServico)
 
-                ordem = Ordem(idordem, precoFinal, status, descricao, cliente, servico)
+                ordem = Ordem(idordem, precoFinal, status, descricao, dataOrdem, cliente, servico)
             }
         }
 

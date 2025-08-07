@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 
-class Sqlite(context: Context) : SQLiteOpenHelper(context, "data.db", null, 3) {
+class Sqlite(context: Context) : SQLiteOpenHelper(context, "data.db", null, 4) {
     override fun onCreate(db: SQLiteDatabase?) {
         if (db != null) {
             db.execSQL("""
@@ -14,11 +14,7 @@ class Sqlite(context: Context) : SQLiteOpenHelper(context, "data.db", null, 3) {
                     nome_cliente TEXT NOT NULL,
                     telefone TEXT NOT NULL,
                     email TEXT NOT NULL,
-                    estado TEXT NOT NULL,
-                    cidade TEXT NOT NULL,
-                    bairro TEXT NOT NULL,
-                    rua TEXT NOT NULL,
-                    num_casa INTEGER NOT NULL
+                    endereco TEXT NOT NULL
                 );         
             """.trimIndent())
             db.execSQL("""
@@ -34,6 +30,7 @@ class Sqlite(context: Context) : SQLiteOpenHelper(context, "data.db", null, 3) {
                     preco_final DECIMAL(10, 2) NOT NULL,
                     status TEXT NOT NULL,
                     descricao TEXT NOT NULL,
+                    data_ordem DATE NOT NULL,
                     idcliente INTEGER NOT NULL,
                     idservico INTEGER NOT NULL,
                     FOREIGN KEY(idcliente) REFERENCES clientes(id),

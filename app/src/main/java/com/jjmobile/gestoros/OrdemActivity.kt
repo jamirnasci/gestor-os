@@ -25,6 +25,7 @@ class OrdemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityOrdemBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         or = OrdemRepository(applicationContext)
         val id: Long = intent.getLongExtra("id", -1L)
 
@@ -34,11 +35,8 @@ class OrdemActivity : AppCompatActivity() {
                 binding.clienteOrdem.text = ordem.cliente.nome
                 binding.telefoneOrdem.text = ordem.cliente.telefone
                 binding.emailOrdem.text = ordem.cliente.email
-                binding.estadoOrdem.text = ordem.cliente.estado
-                binding.cidadeOrdem.text = ordem.cliente.cidade
-                binding.bairroOrdem.text = ordem.cliente.bairro
-                binding.ruaOrdem.text = ordem.cliente.rua
-                binding.numCasaOrdem.text = ordem.cliente.num_casa.toString()
+                binding.endereco.text = ordem.cliente.endereco
+                binding.dataOrdem.text = ordem.data_ordem
                 binding.servicoOrdem.text = ordem.servico.nome
                 binding.precoOrdem.text = ordem.preco_final.toString()
                 binding.descricaoOrdem.setText(ordem.descricao.toString())
@@ -65,5 +63,9 @@ class OrdemActivity : AppCompatActivity() {
             }
             finish()
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 }
