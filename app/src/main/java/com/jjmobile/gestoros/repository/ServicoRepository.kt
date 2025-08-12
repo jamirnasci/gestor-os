@@ -9,7 +9,7 @@ import com.jjmobile.gestoros.models.Servico
 class ServicoRepository(context: Context) {
     private val sqlite: Sqlite = Sqlite(context)
 
-    fun createServico(servico: Servico){
+    fun createServico(servico: Servico): Long{
         val db = sqlite.writableDatabase
 
         val values = ContentValues().apply {
@@ -17,7 +17,7 @@ class ServicoRepository(context: Context) {
             put("preco_servico", servico.preco)
         }
 
-        db.insert("servicos", null, values)
+        return db.insert("servicos", null, values)
     }
     fun findAll(): MutableList<Servico>{
         val db = sqlite.readableDatabase

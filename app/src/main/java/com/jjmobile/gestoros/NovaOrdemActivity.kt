@@ -175,7 +175,7 @@ class NovaOrdemActivity : AppCompatActivity() {
                 val cliente: Cliente = Cliente(null, nome, telefone, email, endereco)
                 if(idCliente == null){
                     idCliente = cr.createCliente(cliente)
-                    if(idCliente != -1L){
+                    if(idCliente == -1L){
                         Toast.makeText(applicationContext, "Falha ao cadastrar cliente", Toast.LENGTH_SHORT).show()
                     }
                 }

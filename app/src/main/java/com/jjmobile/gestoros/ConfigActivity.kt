@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,13 @@ class ConfigActivity : AppCompatActivity() {
 
                 val nome: String = view.findViewById<EditText>(R.id.nomeCreateServico).text.toString()
                 val preco: Double = view.findViewById<EditText>(R.id.precoCreateServico).text.toString().toDouble()
-                sr.createServico(Servico(null, nome, preco))
+                val id: Long = sr.createServico(Servico(null, nome, preco))
+                if(id == -1L){
+                    Toast.makeText(applicationContext, "Falha ao adicionar serviço", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(applicationContext, "Serviço cadastrado", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
             }
             dialog.setNegativeButton("Fechar") { dialog, which ->
                 dialog.dismiss()

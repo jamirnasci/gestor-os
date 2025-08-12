@@ -1,6 +1,9 @@
 package com.jjmobile.gestoros
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -38,7 +41,7 @@ class OrdemActivity : AppCompatActivity() {
                 binding.endereco.text = ordem.cliente.endereco
                 binding.dataOrdem.text = ordem.data_ordem
                 binding.servicoOrdem.text = ordem.servico.nome
-                binding.precoOrdem.text = ordem.preco_final.toString()
+                binding.precoOrdem.text = String.format("R$ %.2f", ordem.preco_final)
                 binding.descricaoOrdem.setText(ordem.descricao.toString())
             }
         }
@@ -62,6 +65,13 @@ class OrdemActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Ordem removida com sucesso", Toast.LENGTH_SHORT).show()
             }
             finish()
+        }
+
+        binding.copyPhone.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("phone", binding.telefoneOrdem.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(applicationContext, "Telefone copiado !", Toast.LENGTH_SHORT).show()
         }
     }
     override fun onSupportNavigateUp(): Boolean {
