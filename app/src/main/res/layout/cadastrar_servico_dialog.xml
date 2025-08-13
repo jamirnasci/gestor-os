@@ -37,7 +37,7 @@
             android:id="@+id/nomeCreateServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/input_background"
             android:ems="10"
             android:inputType="text" />
 
@@ -51,7 +51,7 @@
             android:id="@+id/precoCreateServico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/input_background"
             android:ems="10"
             android:inputType="number" />
     </LinearLayout>

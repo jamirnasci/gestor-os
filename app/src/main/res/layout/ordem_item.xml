@@ -3,44 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="10dp">
 
-    <LinearLayout
-        android:id="@+id/ordemContainer"
-        android:layout_width="409dp"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_default"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-        <ImageView
-            android:id="@+id/statusImg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            app:srcCompat="@drawable/cancel_svgrepo_com" />
+        android:background="@drawable/list_item"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/ordemContainer"
+            android:layout_width="409dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/nomeClienteItem"
+            <ImageView
+                android:id="@+id/statusImg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:padding="5dp"
+                app:srcCompat="@drawable/cancel_svgrepo_com" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome Cliente"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_weight="0"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/dataOrdemItem"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descrição da ordem" />
+                <TextView
+                    android:id="@+id/nomeClienteItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nome Cliente"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/dataOrdemItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição da ordem" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

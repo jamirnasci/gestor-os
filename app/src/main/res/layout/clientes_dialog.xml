@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +20,19 @@
                 android:id="@+id/searchClienteDialogEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="Nome do cliente"
                 android:inputType="text" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_weight="0"
+                android:background="@drawable/circle_background"
                 app:srcCompat="@android:drawable/ic_menu_search" />
 
         </LinearLayout>

@@ -71,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:paddingRight="5dp"
                     android:text="TextView"
                     android:textAlignment="textEnd"
                     android:textSize="20sp" />
@@ -80,7 +81,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
+                    android:background="@drawable/circle_background"
                     android:backgroundTint="@color/green"
+                    android:padding="6dp"
                     android:tint="@color/white"
                     app:srcCompat="?attr/actionModeCopyDrawable" />
             </LinearLayout>
@@ -146,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Serviço:"
+                    android:text="Serviço"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -156,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
+                    android:textAlignment="textEnd"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -170,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Preço final:"
+                    android:text="Preço final"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -180,6 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="TextView"
+                    android:textAlignment="textEnd"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -195,8 +200,9 @@
                 android:id="@+id/descricaoOrdem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:editable="false"
                 android:ems="10"
                 android:gravity="start|top"

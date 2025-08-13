@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="Nome do cliente"
                 android:inputType="text" />
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="Telefone"
                 android:inputType="phone" />
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="E-mail"
                 android:inputType="textEmailAddress" />
@@ -91,7 +91,7 @@
                 android:id="@+id/enderecoInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="Rua, Nº, Bairro, Cidade..."
                 android:inputType="text" />
@@ -100,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -114,35 +115,41 @@
                         android:layout_height="wrap_content"
                         android:text="Data:" />
 
-                    <EditText
-                        android:id="@+id/dataInput"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:drawable/edit_text"
-                        android:editable="false"
-                        android:ems="10"
-                        android:inputType="text" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0"
-                    android:gravity="bottom|right"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/openDatePickerBtn"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <ImageButton
-                        android:id="@+id/procurarClienteBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@android:drawable/ic_menu_search" />
+                        <EditText
+                            android:id="@+id/dataInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/input_background"
+                            android:editable="false"
+                            android:ems="10"
+                            android:inputType="text" />
+
+                        <ImageButton
+                            android:id="@+id/openDatePickerBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:background="@drawable/circle_background"
+                            android:padding="5dp"
+                            app:srcCompat="@android:drawable/ic_menu_my_calendar" />
+
+                        <ImageButton
+                            android:id="@+id/procurarClienteBtn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/circle_background"
+                            android:padding="5dp"
+                            app:srcCompat="@drawable/baseline_search_24" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
@@ -174,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:hint="Preço"
                 android:inputType="text" />
@@ -190,8 +197,9 @@
                 android:id="@+id/descricaoInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:layout_weight="1"
-                android:background="@android:drawable/edit_text"
+                android:background="@drawable/input_background"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="Descrição"
@@ -220,6 +228,7 @@
         android:background="@drawable/rounded_button"
         android:backgroundTint="#E7E7E7"
         android:elevation="15dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
