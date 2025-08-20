@@ -3,6 +3,8 @@
     <style name="Base.Theme.GestorOS" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="statusBarBackground">@color/green</item>
+        <item name="android:statusBarColor">@color/green</item>
     </style>
 
     <style name="Theme.GestorOS" parent="Base.Theme.GestorOS" />

@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.CompoundButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jjmobile.gestoros.adapters.OrdemAdapter
 import com.jjmobile.gestoros.databinding.ActivityOrdensBinding
+import com.jjmobile.gestoros.db.Sqlite
 import com.jjmobile.gestoros.models.Ordem
 import com.jjmobile.gestoros.repository.OrdemRepository
 import java.time.LocalDateTime
@@ -33,9 +36,9 @@ class OrdensActivity : AppCompatActivity() {
         return filteredOrdens
     }
 
-    private fun filterByDate(data: String, ordens: List<Ordem>): List<Ordem>{
+    private fun filterByStatus(status: String, ordens: List<Ordem>): List<Ordem>{
         val filteredOrdens: List<Ordem> = ordens.filter { item ->
-            item.data_ordem == data
+            item.status == status
         }
         return filteredOrdens
     }
@@ -73,17 +76,21 @@ class OrdensActivity : AppCompatActivity() {
 
         })
 
-        binding.hojeCheckFilter.setOnCheckedChangeListener { buttonView, isChecked ->
-            if(binding.hojeCheckFilter.isChecked){
-                val calendar = Calendar.getInstance()
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                val formattedDate = dateFormat.format(calendar.time)
-                Toast.makeText(applicationContext, formattedDate, Toast.LENGTH_SHORT).show()
-                val filteredOrdens = filterByDate(formattedDate, ordens)
-                binding.ordemRecycler.adapter = OrdemAdapter(applicationContext, filteredOrdens, this@OrdensActivity)
-            }else{
-                binding.ordemRecycler.adapter = OrdemAdapter(applicationContext, ordens, this@OrdensActivity)
+        binding.filterGroup.setOnCheckedChangeListener { p0, p1 ->
+            val id: Int = binding.filterGroup.checkedRadioButtonId
+            var filteredOrdens: List<Ordem> = mutableListOf<Ordem>()
+            when (id) {
+                R.id.concluidasRadio -> {
+                    filteredOrdens = filterByStatus(Sqlite.ORDEM_STATUS_CONCLUIDO, ordens)
+                }
+                R.id.pendentesRadio -> {
+                    filteredOrdens = filterByStatus(Sqlite.ORDEM_STATUS_ABERTO, ordens)
+                }
+                R.id.canceladasRadio -> {
+                    filteredOrdens = filterByStatus(Sqlite.ORDEM_STATUS_CANCELADO, ordens)
+                }
             }
+            binding.ordemRecycler.adapter = OrdemAdapter(applicationContext, filteredOrdens, this@OrdensActivity)
         }
 
     }

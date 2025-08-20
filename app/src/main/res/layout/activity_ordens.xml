@@ -52,12 +52,32 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/hojeCheckFilter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RadioGroup
+                    android:id="@+id/filterGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Hoje" />
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/concluidasRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Concluídas" />
+
+                    <RadioButton
+                        android:id="@+id/pendentesRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pendentes" />
+
+                    <RadioButton
+                        android:id="@+id/canceladasRadio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Canceladas" />
+                </RadioGroup>
 
             </LinearLayout>
 

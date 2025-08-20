@@ -3,5 +3,7 @@
     <style name="Base.Theme.GestorOS" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="statusBarBackground">@color/green</item>
+        <item name="android:statusBarColor">@color/green</item>
     </style>
 </resources>
